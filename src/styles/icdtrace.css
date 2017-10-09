@@ -1,0 +1,84 @@
+body {
+  background-color: #eee;
+  margin: 0; }
+
+.app {
+  text-align: center; }
+
+.logo {
+  height: 150px; }
+
+.header {
+  background-color: #ccc;
+  height: 156px;
+  padding: 20px;
+  color: black; }
+
+.header-color {
+  background-color: #188a88;
+  height: 6px; }
+
+.header-content {
+  margin: 0 auto;
+  width: 600px;
+  text-align: center; }
+
+.header-content-logo {
+  float: left;
+  width: 300px;
+  height: 150px; }
+
+.header-content-title {
+  float: left;
+  width: 300px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  .header-content-title h1 {
+    font-size: 64px;
+    margin: 0px;
+    font-family: "Open Sans", sans-serif; }
+
+.diagnosis-form {
+  text-align: center; }
+
+.diagnosis-form h2 {
+  margin-bottom: 15px;
+  font: 30px "Julius Sans One", sans-serif; }
+
+.diagnosis-form input:focus {
+  border-color: #188a88; }
+
+.diagnosis-text {
+  margin-bottom: 15px;
+  font-family: "Muli", sans-serif; }
+
+.diagnosis-button {
+  font-family: "Muli", sans-serif;
+  background-color: #188a88;
+  border-color: #188a88 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); }
+
+.diagnosis-button:hover {
+  box-shadow: 0px 0px 0px 2px #188a88 !important; }
+
+.results {
+  width: 100%;
+  text-align: center; }
+
+.results tbody tr:hover {
+  background-color: #ccc; }
+
+.results tbody tr._conf:hover {
+  background-color: rgba(24, 138, 136, 0.8); }
+
+.loading {
+  margin-top: 20px; }
+
+._conf {
+  background-color: rgba(24, 138, 136, 0.8);
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); }
+
+/*# sourceMappingURL=app.css.map */

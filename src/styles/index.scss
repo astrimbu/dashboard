@@ -4,12 +4,85 @@ body {
   font-family: sans-serif;
 }
 
-.App {
-  text-align: center;
+h2 {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 32px;
+  font-weight: bold;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.switch-wrapper {
+  position: relative;
+}
+.switch-wrapper > div {
+  position: absolute;
+  width: 100%;
+}
+
+.App {
+  text-align: center;
+
+  h2 {
+    margin-bottom: 50px;
+  }
+
+  .Header {
+    background-color: #ccc;
+    height: 50px;
+    line-height: 50px;
+    a { 
+      color: black;
+      text-decoration: none;
+      font-weight: bold;
+      font-family: 'Arvo', serif;
+      &:hover {
+        text-shadow: 2px 2px #eee;
+      }
+    }
+  }
+}
+
+.Dashboard {
+  width: 98%;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.dash-row {
+  clear: both;
+  padding: 0px;
+  margin: 0px;
+  &:before,
+  &:after { content: ""; display: table; }
+  &:after { clear: both; }
+  zoom: 1; /* For IE 6/7 */
+  a { 
+    text-decoration: none;
+    font-family: 'Arvo', serif;
+    color: black;
+  }
+}
+
+.dash-item {
+  font-size: 24px;
+  display: block;
+  float:left;
+  margin: 1% 0 1% 1.6%;
+  width: 49.2%;
+  &:first-child { margin-left: 0; }
+  background-color: #cacaca;
+  height: 100px;
+  line-height: 100px;
+  border-radius: 20px;
+  &:hover {
+    background-color: #555;
+    -webkit-box-shadow:inset 0px 0px 0px 5px #555;
+    -moz-box-shadow:inset 0px 0px 0px 5px #555;
+    box-shadow:inset 0px 0px 0px 5px #555;
+    color: white;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .dash-item { width: 100%; margin: 1% 0 1% 0; }
 }
 
