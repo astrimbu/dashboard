@@ -109,7 +109,7 @@ class ICDTrace extends Component {
   render() {
     return (
       <Box align="center" direction="column">
-        <h2>
+        <h2 className="app-title">
           ICDTrace
         </h2>
         <Box margin={{vertical: "small"}}>
@@ -128,9 +128,7 @@ class ICDTrace extends Component {
           </Form>
         </Box>
 				{this.state.result_obtained &&
-					<Box className="results" 
-            margin={{vertical: "medium"}} 
-            size={{width: {max: "large"}}}>
+					<Box className="results" size={{width: {max: "large"}}}>
 						<Table>
 							<TableHeader labels={['Result', 'Code', 'Description']} />
 							<tbody>

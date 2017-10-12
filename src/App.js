@@ -6,10 +6,6 @@ import ICDTrace from './ICDTrace.js'
 
 class DashRow extends Component {
 
-  constructor(props) {
-    super(props)
-  }
-
   render() {
     return (
       <div className="dash-row">
@@ -29,7 +25,7 @@ class Dashboard extends Component {
   render() {
     return (
       <div className="Dashboard">
-        <h2>Dashboard</h2>
+        <h2 className="app-title">Dashboard</h2>
         <DashRow 
           link1={['/icdtrace','ICDTrace']} 
           link2={['/ckdrisk','CKD Risk']} />
@@ -37,8 +33,8 @@ class Dashboard extends Component {
           link1={['/loinc','LOINC']}
           link2={['/drugtag','Drug Name Tagging']} />
         <DashRow
-          link1={['/fraudbilling','Fraudulent Medical Billing']}
-          link2={['/radiology','Radiology']} />
+          link1={['/pophealth','Population Health Mgmt.']}
+          link2={['/340b','340B Drug Pricing']} />
       </div>
     )
   }
@@ -46,31 +42,31 @@ class Dashboard extends Component {
 
 const CKDRisk = () => (
   <div>
-    <h2>CKD Risk</h2>
+    <h2 className="app-title">CKD Risk</h2>
   </div>
 )
 
 const LOINC = () => (
   <div>
-    <h2>LOINC</h2>
+    <h2 className="app-title">LOINC</h2>
   </div>
 )
 
 const DrugTag = () => (
   <div>
-    <h2>Drug Name Tagging</h2>
+    <h2 className="app-title">Drug Name Tagging</h2>
   </div>
 )
 
 const FraudBilling = () => (
   <div>
-    <h2>Fraudulent Medical Billing</h2>
+    <h2 className="app-title">Fraudulent Medical Billing</h2>
   </div>
 )
 
 const Radiology = () => (
   <div>
-    <h2>Radiology</h2>
+    <h2 className="app-title">Radiology</h2>
   </div>
 )
 

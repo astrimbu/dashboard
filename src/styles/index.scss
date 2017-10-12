@@ -1,13 +1,17 @@
+$dash-item-hover: #274086;
+$dash-item: #9fafdc;
+
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
 }
 
-h2 {
-  font-family: 'Quicksand', sans-serif;
-  font-size: 32px;
+.app-title {
+  font-family: 'Droid Sans', sans-serif;
+  font-size: 40px;
   font-weight: bold;
+  color: $dash-item-hover;
 }
 
 .switch-wrapper {
@@ -26,14 +30,14 @@ h2 {
   }
 
   .Header {
-    background-color: #ccc;
     height: 50px;
     line-height: 50px;
     a { 
       color: black;
       text-decoration: none;
-      font-weight: bold;
+      font-weight: 900;
       font-family: 'Arvo', serif;
+      font-size: 16px;
       &:hover {
         text-shadow: 2px 2px #eee;
       }
@@ -69,20 +73,21 @@ h2 {
   margin: 1% 0 1% 1.6%;
   width: 49.2%;
   &:first-child { margin-left: 0; }
-  background-color: #cacaca;
+  background-color: $dash-item;
   height: 100px;
   line-height: 100px;
   border-radius: 20px;
   &:hover {
-    background-color: #555;
-    -webkit-box-shadow:inset 0px 0px 0px 5px #555;
-    -moz-box-shadow:inset 0px 0px 0px 5px #555;
-    box-shadow:inset 0px 0px 0px 5px #555;
+    background-color: $dash-item-hover;
+    -webkit-box-shadow:inset 0px 0px 0px 5px $dash-item-hover;
+    -moz-box-shadow:inset 0px 0px 0px 5px $dash-item-hover;
+    box-shadow:inset 0px 0px 0px 5px $dash-item-hover;
+    text-shadow: 0 2px black;
     color: white;
   }
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 645px) {
   .dash-item { width: 100%; margin: 1% 0 1% 0; }
 }
 
