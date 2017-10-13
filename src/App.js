@@ -58,15 +58,15 @@ const DrugTag = () => (
   </div>
 )
 
-const FraudBilling = () => (
+const PopHealth = () => (
   <div>
-    <h2 className="app-title">Fraudulent Medical Billing</h2>
+    <h2 className="app-title">Population Health Management</h2>
   </div>
 )
 
-const Radiology = () => (
+const DrugPrice = () => (
   <div>
-    <h2 className="app-title">Radiology</h2>
+    <h2 className="app-title">340B Drug Pricing</h2>
   </div>
 )
 
@@ -119,8 +119,8 @@ const App = () => (
         <Route path="/ckdrisk" component={CKDRisk}/>
         <Route path="/loinc" component={LOINC}/>
         <Route path="/drugtag" component={DrugTag}/>
-        <Route path="/fraudbilling" component={FraudBilling}/>
-        <Route path="/radiology" component={Radiology}/>
+        <Route path="/pophealth" component={PopHealth}/>
+        <Route path="/340b" component={DrugPrice}/>
       </AnimatedSwitch>
     </div>
   </Router>
