@@ -30,7 +30,8 @@ body {
       font-family: 'Arvo', serif;
       font-size: 16px; }
       .App .Header a:hover {
-        text-shadow: 2px 2px #eee; }
+        color: #274086;
+        font-size: 18px; }
 
 .Dashboard {
   width: 98%;
