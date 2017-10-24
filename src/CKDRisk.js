@@ -7,30 +7,24 @@ import './styles/ckdrisk.css';
 import registerServiceWorker from './registerServiceWorker';
 
 
-class App extends Component {
+class Footer extends Component {
 
   render() {
     return (
-      <div className="App">
-        <Header />
-        <Foresight />
-      </div>
+      <footer className="top footer">
+        <div className="citation">
+          * Tangri, Navdeep, et al. “A Predictive Model for Progression of
+            Chronic Kidney Disease to Kidney Failure.” JAMA, The Journal of the
+            American Medical Association, vol. 305, no. 15, 20 Apr. 2011, pp.
+            1553–1559., jamanetwork.com/journals/jama.
+        </div>
+        <div className="footer-veda">
+          Vertical Data Insights
+        </div>
+      </footer>
     )
   }
 }
-
-
-class Header extends Component {
-
-  render() {
-    return (
-      <div className="App-header">
-        <h2>CKD Risk</h2>
-      </div>
-    )
-  }
-}
-
 
 class ErrorMessage extends Component {
 
@@ -133,11 +127,11 @@ class Results extends Component {
     if (this.props.ckdRisk !== null) {
       console.log(ckdRisk.parseFloat)
       if (parseFloat(ckdRisk) < 5.0) {
-        riskHeader = <h2 className="green">{ckdRisk}%</h2>
+        riskHeader = <h2 className="green">{ckdRisk}%*</h2>
       } else if (parseFloat(ckdRisk) < 15.0) {
-        riskHeader = <h2 className="yellow">{ckdRisk}%</h2>
+        riskHeader = <h2 className="yellow">{ckdRisk}%*</h2>
       } else {
-        riskHeader = <h2 className="red">{ckdRisk}%</h2>
+        riskHeader = <h2 className="red">{ckdRisk}%*</h2>
       }
       riskResult =
         <div className="box">
@@ -425,10 +419,14 @@ class Foresight extends Component {
     return (
       <div className="Foresight">
         <div className="App-header">
-          <h2>CKD Risk</h2>
+          <h2>Chronic Kidney Disease Risk Calculator</h2>
         </div>
         <p className="">
-          To get started, upload your CCD.
+          <i>5-year risk of progression to kidney failure requiring dialysis or
+      transplantation</i>
+        </p>
+        <p className="">
+          To get started, upload a CCD:
         </p>
         <ReactFileReader handleFiles={this.handleFiles} fileTypes={'.xml'}>
           <button className="grommetStyleButton">Upload</button>
@@ -450,6 +448,7 @@ class Foresight extends Component {
           albumin={this.state.albumin}
           bicarbonate={this.state.bicarbonate}
           isCCD={this.state.isCCD}/>
+        <Footer/>
       </div>
     )
   }

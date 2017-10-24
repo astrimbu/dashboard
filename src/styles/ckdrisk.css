@@ -1,6 +1,13 @@
 html, body, main {
+  height: 100%;
   font-family: "Droid Serif", serif;
   background-color: #eee; }
+
+#root { height: 100%; }
+.App { height: 100%; }
+.switch-wrapper { height: 100%; }
+.switch-wrapper > div { height: 100%; }
+.Foresight { min-height: 100%; margin-bottom: 200px; }
 
 .droid {
   font-family: "Droid Sans", sans-serif; }
@@ -104,6 +111,21 @@ html, body, main {
 }
 .Foresight h2 {
   margin-bottom: 0.83em;
+}
+.footer {
+  position: absolute;
+  bottom: -240px;
+  color: white;
+  background-color: #274086;
+}
+.citation {
+  width: 70%;
+  margin: 0 auto;
+  padding: 20px;
+}
+.footer-veda {
+  padding-bottom: 20px;
+  font-family: "Muli", sans-serif;
 }
 
 /*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
