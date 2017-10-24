@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { spring, AnimatedSwitch } from 'react-router-transition'
 import ICDTrace from './ICDTrace.js'
+import CKDRisk from './CKDRisk.js'
 
 
 class DashRow extends Component {
@@ -39,12 +40,6 @@ class Dashboard extends Component {
     )
   }
 }
-
-const CKDRisk = () => (
-  <div>
-    <h2 className="app-title">CKD Risk</h2>
-  </div>
-)
 
 const LOINC = () => (
   <div>
