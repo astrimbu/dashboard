@@ -4,7 +4,7 @@ body {
   font-family: sans-serif; }
 
 .app-title {
-  font-family: 'Droid Sans', sans-serif;
+  font-family: "Droid Sans", sans-serif;
   font-size: 40px;
   font-weight: bold;
   color: #274086; }
@@ -27,7 +27,7 @@ body {
       color: black;
       text-decoration: none;
       font-weight: 900;
-      font-family: 'Arvo', serif;
+      font-family: "Arvo", serif;
       font-size: 16px; }
       .App .Header a:hover {
         color: #274086;
@@ -51,7 +51,7 @@ body {
     clear: both; }
   .dash-row a {
     text-decoration: none;
-    font-family: 'Arvo', serif;
+    font-family: "Arvo", serif;
     color: black; }
 
 .dash-item {

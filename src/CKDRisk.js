@@ -33,7 +33,7 @@ class ErrorMessage extends Component {
       return (
         <div className="section top">
           <div className="box">
-            <h3 className="red">File must be in XML format.</h3>
+            <h3 className="red fancy-header">File must be in XML format.</h3>
           </div>
         </div>
       )
@@ -41,7 +41,7 @@ class ErrorMessage extends Component {
       return (
         <div className="section top">
           <div className="box">
-            <h3 className="red">File is not a CCD.</h3>
+            <h3 className="red fancy-header">File is not a CCD.</h3>
             <p className="errorCCD">{this.props.error}</p>
           </div>
         </div>
@@ -50,7 +50,7 @@ class ErrorMessage extends Component {
       return (
         <div className="section top">
           <div className="box">
-            <h3 className="red">Missing Laboratory Data</h3>
+            <h3 className="red fancy-header">Missing Laboratory Data</h3>
             <p className="errorCCD">
               This CCD is missing laboratory data for the following variables:
             </p>
@@ -100,7 +100,7 @@ class Variables extends Component {
     if (this.props.isCCD) {
       return (
         <div className="top">
-          <h3 className="labData droid">Relevant Laboratory Data</h3>
+          <h3 className="labData fancy-header">Relevant Laboratory Data</h3>
           <Variable name="Sex" value={this.props.sex}/>
           <Variable name="Age" value={this.props.age} units="years"/>
           <Variable name="GFR" value={this.props.gfr} units="mL/min/1.73m²"/>
@@ -135,7 +135,7 @@ class Results extends Component {
       }
       riskResult =
         <div className="box">
-          <h3>Results</h3>
+          <h3 className="fancy-header">Results</h3>
           <p>5-year risk of progression to kidney failure requiring dialysis or transplantation:</p>
           {riskHeader}
         </div>

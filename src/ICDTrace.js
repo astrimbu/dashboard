@@ -37,53 +37,64 @@ class ICDTrace extends Component {
   }
 
   handleSubmit(event) {
-		const jsonResults = [
-      {"in_text": "pain in left foot", "result": [[0.3077935056255462, 421690, "S99", "Other and unspecified injuries of ankle and foot"], [0.2581988897471611, 382763, "R52", "Pain, unspecified"], [0.2535462764185549, 432978, "T69", "Other effects of reduced temperature"], [0.23717082451262844, 381920, "Q70", "Syndactyly"], [0.23354968324845682, 421461, "S97", "Crushing injury of ankle and foot"], [0.2070196678027063, 421528, "S98", "Traumatic amputation of ankle and foot"], [0.2070196678027063, 364355, "H57", "Other disorders of eye and adnexa"], [0.2032789070454353, 374432, "M79", "Other and unspecified soft tissue disorders, not elsewhere classified"], [0.1999999999999999, 421195, "S96", "Injury of muscle and tendon at ankle and foot level"], [0.19781414201873607, 425052, "T25", "Burn and corrosion of ankle and foot"]]},
-      {"in_text": "right hand", "result": [[0.32732683535398854, 432978, "T69", "Other effects of reduced temperature"], [0.3110855084191276, 371192, "M18", "Osteoarthritis of first carpometacarpal joint"], [0.30618621784789724, 381920, "Q70", "Syndactyly"], [0.280056016805602, 408056, "S69", "Other and unspecified injuries of wrist, hand and finger(s)"], [0.25264557631995577, 371209, "M19", "Other and unspecified osteoarthritis"], [0.24743582965269673, 407673, "S67", "Crushing injury of wrist, hand and fingers"], [0.23570226039551595, 369905, "M07", "Enteropathic arthropathies"], [0.23145502494313774, 407781, "S68", "Traumatic amputation of wrist, hand and fingers"], [0.22176638128637177, 374494, "M80", "Osteoporosis with current pathological fracture"], [0.22176638128637177, 373522, "M63", "Disorders of muscle in diseases classified elsewhere"]]},
-			{"in_text": "inner ear", "result": [[0.2886751345948128, 356534, "C30", "Malignant neoplasm of nasal cavity and middle ear"], [0.26726124191242434, 421804, "T16", "Foreign body in ear"], [0.23570226039551584, 381450, "Q17", "Other congenital malformations of ear"], [0.22941573387056172, 365083, "H82", "Vertiginous syndromes in diseases classified elsewhere"], [0.22941573387056172, 364735, "H67", "Otitis media in diseases classified elsewhere"], [0.19611613513818402, 364778, "H69", "Other and unspecified disorders of Eustachian tube"], [0.19611613513818402, 365166, "H92", "Otalgia and effusion of ear"], [0.18898223650461357, 365243, "H94", "Other disorders of ear in diseases classified elsewhere"], [0.18898223650461357, 364874, "H72", "Perforation of tympanic membrane"], [0.18898223650461357, 364622, "H62", "Disorders of external ear in diseases classified elsewhere"]]}
-		]
-
+    event.preventDefault()
+    let pipeline_id = '72251338-4430-42bc-9796-414138537a17'
     let diagnosis = encodeURIComponent(this.state.diagnosis.trim())
-    let session_url = 'https://acre.cdm.depaul.edu/default/api/v1/instant/ml/50/8?text=' + diagnosis 
+    let session_url = 'http://173.197.138.162:8080/v1/pipeline/' + pipeline_id
+    console.log(session_url)
 
     // if request_sent && !result_obtained, show "loading" icon
     this.setState({result_obtained: false})
 
     let xhr = new XMLHttpRequest()
     xhr.onerror = () => {
-			this.setState({result_obtained: true})
-      this.setState({results: jsonResults[this.state.rotate]})
-      if (this.state.rotate < 2) {
-        this.setState({rotate: this.state.rotate + 1})
-      } else {
-        this.setState({rotate: 0})
-      }
+      console.log("onerror")
+			// this.setState({result_obtained: true})
+      // this.setState({results: jsonResults[this.state.rotate]})
+      // if (this.state.rotate < 2) {
+      //   this.setState({rotate: this.state.rotate + 1})
+      // } else {
+      //   this.setState({rotate: 0})
+      // }
     }
 		xhr.onreadystatechange = () => {
 			switch (this.readyState) {
 				case 0: console.log("unsent")
+          console.log("0")
           break
 				case 1: console.log("opened")
+          console.log("1")
           break
 				case 2: console.log("headers_received")
+          console.log("2")
           break
 				case 3: console.log("loading")
+          console.log("3")
           break
 				case 4: console.log("done")
+          console.log("4")
+          this.setState({result_obtained: true})
           break
 				case undefined:
+          console.log("undef")
           // xhr issues --> undefined readystate simulates "sent" req
-					this.setState({request_sent: true})
+					// this.setState({request_sent: true})
           break
 				default: break
 			}
 		}
-    xhr.open("POST", session_url, true)
-    const data = window.btoa(unescape(encodeURIComponent('user:pass')))
-    xhr.setRequestHeader("Authorization", "Basic " + data)
-    xhr.send()
-
-    event.preventDefault()
+    xhr.open("PUT", session_url)
+    xhr.onload = function () {
+      if (xhr.readyState === xhr.DONE) {
+        if (xhr.status === 200) {
+          console.log(xhr.response)
+          console.log(xhr.responseXML)
+          this.setState({results: xhr.response})
+        }
+      }
+    }
+    const body = [{'description': diagnosis}]
+    xhr.send(JSON.stringify(body))
   }
 
   selectResult(event) {
@@ -128,7 +139,7 @@ class ICDTrace extends Component {
           </Form>
         </Box>
 				{this.state.result_obtained &&
-					<Box className="results" size={{width: {max: "large"}}}>
+					<Box className="results" margin={{vertical:"medium"}} size={{width: {max: "large"}}}>
 						<Table>
 							<TableHeader labels={['Result', 'Code', 'Description']} />
 							<tbody>

@@ -1,5 +1,8 @@
 $dash-item-hover: #274086;
 $dash-item: #9fafdc;
+$droid: 'Droid Sans', sans-serif;
+$arvo: 'Arvo', serif;
+$quicksand: 'Quicksand', sans-serif;
 
 body {
   margin: 0;
@@ -8,7 +11,7 @@ body {
 }
 
 .app-title {
-  font-family: 'Droid Sans', sans-serif;
+  font-family: $droid;
   font-size: 40px;
   font-weight: bold;
   color: $dash-item-hover;
@@ -36,7 +39,7 @@ body {
       color: black;
       text-decoration: none;
       font-weight: 900;
-      font-family: 'Arvo', serif;
+      font-family: $arvo;
       font-size: 16px;
       &:hover {
         color: #274086;
@@ -62,7 +65,7 @@ body {
   zoom: 1; /* For IE 6/7 */
   a { 
     text-decoration: none;
-    font-family: 'Arvo', serif;
+    font-family: $arvo;
     color: black;
   }
 }
