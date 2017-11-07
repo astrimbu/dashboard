@@ -39,7 +39,8 @@ class ICDTrace extends Component {
   handleSubmit(event) {
     event.preventDefault()
     let pipeline_id = 'e55590bd-043a-4472-bebf-5e9f6dd9daa2'
-    let diagnosis = encodeURIComponent(this.state.diagnosis.trim())
+    let diagnosis = this.state.diagnosis
+    console.log(diagnosis)
     let session_url = 'http://173.197.138.162:8080/v1/pipeline/' + pipeline_id
 
     // if request_sent && !result_obtained, show "loading" icon
