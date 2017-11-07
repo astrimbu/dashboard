@@ -38,63 +38,33 @@ class ICDTrace extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    let pipeline_id = '72251338-4430-42bc-9796-414138537a17'
+    let pipeline_id = 'e55590bd-043a-4472-bebf-5e9f6dd9daa2'
     let diagnosis = encodeURIComponent(this.state.diagnosis.trim())
     let session_url = 'http://173.197.138.162:8080/v1/pipeline/' + pipeline_id
-    console.log(session_url)
 
     // if request_sent && !result_obtained, show "loading" icon
     this.setState({result_obtained: false})
 
     let xhr = new XMLHttpRequest()
+    xhr.open("PUT", session_url)
     xhr.onerror = () => {
       console.log("onerror")
-			// this.setState({result_obtained: true})
-      // this.setState({results: jsonResults[this.state.rotate]})
-      // if (this.state.rotate < 2) {
-      //   this.setState({rotate: this.state.rotate + 1})
-      // } else {
-      //   this.setState({rotate: 0})
-      // }
     }
-		xhr.onreadystatechange = () => {
-			switch (this.readyState) {
-				case 0: console.log("unsent")
-          console.log("0")
-          break
-				case 1: console.log("opened")
-          console.log("1")
-          break
-				case 2: console.log("headers_received")
-          console.log("2")
-          break
-				case 3: console.log("loading")
-          console.log("3")
-          break
-				case 4: console.log("done")
-          console.log("4")
-          this.setState({result_obtained: true})
-          break
-				case undefined:
-          console.log("undef")
-          // xhr issues --> undefined readystate simulates "sent" req
-					// this.setState({request_sent: true})
-          break
-				default: break
-			}
-		}
-    xhr.open("PUT", session_url)
-    xhr.onload = function () {
+    xhr.onload = () => {
       if (xhr.readyState === xhr.DONE) {
         if (xhr.status === 200) {
-          console.log(xhr.response)
-          console.log(xhr.responseXML)
-          this.setState({results: xhr.response})
+          // console.log(xhr.response)
+          this.setState({
+            results: xhr.response,
+            result_obtained: true
+          })
         }
       }
     }
     const body = [{'description': diagnosis}]
+    xhr.setRequestHeader("Content-type", "application/json; charset=utf-8")
     xhr.send(JSON.stringify(body))
+    this.setState({request_sent: true})
   }
 
   selectResult(event) {
@@ -108,6 +78,7 @@ class ICDTrace extends Component {
   }
 
   trimResults(selected) {
+    // TODO: changed Result component
     let results = this.state.results
     console.log(results)
     results.result.forEach((r) => {
@@ -118,6 +89,19 @@ class ICDTrace extends Component {
   }
 
   render() {
+    var results = []
+    if (this.state.result_obtained) {
+      let parsed_results = JSON.parse(this.state.results)
+      let results_json = parsed_results[0]
+      let num_results = results_json.ml_tag.length
+      for (var i = 0; i < num_results-1; i++) {
+        results.push(
+          <Result //selectResult={this.selectResult}
+            index={i} code={results_json.ml_tag[i]}
+            description={results_json.ml_tag_description[i]}/>
+        )
+      }
+    }
     return (
       <Box align="center" direction="column">
         <h2 className="app-title">
@@ -143,19 +127,7 @@ class ICDTrace extends Component {
 						<Table>
 							<TableHeader labels={['Result', 'Code', 'Description']} />
 							<tbody>
-								{this.state.results.result.map((result, i) => {
-                  if (this.state.selected == result[1]) {
-                    return (
-                      <Result conf=" _conf" selectResult={this.selectResult} 
-                      r={result} index={i} />
-                    )
-                  } else {
-                    return (
-                      <Result selectResult={this.selectResult} 
-                      r={result} index={i} />
-                    )
-                  }
-								})}
+                {results}
 							</tbody>
 						</Table>
 					</Box>
@@ -179,10 +151,10 @@ class Result extends Component {
   render() {
     return (
       <TableRow className={"results"+this.props.conf} onClick={this.props.selectResult}
-      id={this.props.r[1]} key={this.props.r[1]}>
+      id={this.props.code} key={this.props.code}>
         <td>{this.props.index + 1}</td>
-        <td>{this.props.r[2]}</td>
-        <td>{this.props.r[3]}</td>
+        <td>{this.props.code}</td>
+        <td>{this.props.description}</td>
       </TableRow>
     );
   }

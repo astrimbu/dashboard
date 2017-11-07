@@ -80,16 +80,30 @@ class Variable extends Component {
       } else { units = "(" + this.props.units + ")" }
     }
 
-    return (
-      <div className="section">
-        <div className="col justifyRight">
-          <b>{this.props.name}:</b>
+    if (this.props.used) {
+      return (
+        <div className="section">
+          <div className="col justifyRight">
+            <b>{this.props.name}:</b>
+          </div>
+          <div className="col justifyLeft">
+            {value} {units}
+          </div>
         </div>
-        <div className="col justifyLeft">
-          {value} {units}
-        </div>
-      </div>
-    )
+      )
+    } else {
+      return (
+        <div></div>
+        // <div className="section dimmed">
+        //   <div className="col justifyRight">
+        //     <b>{this.props.name}:</b>
+        //   </div>
+        //   <div className="col justifyLeft">
+        //     {value} {units}
+        //   </div>
+        // </div>
+      )
+    }
   }
 }
 
@@ -98,21 +112,55 @@ class Variables extends Component {
 
   render() {
     if (this.props.isCCD) {
-      return (
-        <div className="top">
-          <h3 className="labData fancy-header">Relevant Laboratory Data</h3>
-          <Variable name="Sex" value={this.props.sex}/>
-          <Variable name="Age" value={this.props.age} units="years"/>
-          <Variable name="GFR" value={this.props.gfr} units="mL/min/1.73m²"/>
-          <Variable name="ACR" value={this.props.acr} units="mg/g"/>
-          <Variable name="Calcium" value={this.props.calcium} units="mg/dL"/>
-          <Variable name="Phosphorous" value={this.props.phosphorous}
-            units="mg/dL"/>
-          <Variable name="Albumin" value={this.props.albumin} units="g/dL"/>
-          <Variable name="Bicarbonate" value={this.props.bicarbonate} 
-            units="mEq/L"/>
-        </div>
-      )
+      if (this.props.variablesUsed === 4) {
+        return (
+          <div className="top">
+            <h3 className="labData fancy-header">Relevant Laboratory Data</h3>
+            <Variable used={true} name="Sex" value={this.props.sex}/>
+            <Variable used={true} name="Age" value={this.props.age} units="years"/>
+            <Variable used={true} name="GFR" value={this.props.gfr} units="mL/min/1.73m²"/>
+            <Variable used={true} name="ACR" value={this.props.acr} units="mg/g"/>
+            <Variable name="Calcium" value={this.props.calcium} units="mg/dL"/>
+            <Variable name="Phosphorous" value={this.props.phosphorous}
+              units="mg/dL"/>
+            <Variable name="Albumin" value={this.props.albumin} units="g/dL"/>
+            <Variable name="Bicarbonate" value={this.props.bicarbonate} 
+              units="mEq/L"/>
+          </div>
+        )
+      } else if (this.props.variablesUsed === 8) {
+        return (
+          <div className="top">
+            <h3 className="labData fancy-header">Relevant Laboratory Data</h3>
+            <Variable used={true} name="Sex" value={this.props.sex}/>
+            <Variable used={true} name="Age" value={this.props.age} units="years"/>
+            <Variable used={true} name="GFR" value={this.props.gfr} units="mL/min/1.73m²"/>
+            <Variable used={true} name="ACR" value={this.props.acr} units="mg/g"/>
+            <Variable used={true} name="Calcium" value={this.props.calcium} units="mg/dL"/>
+            <Variable used={true} name="Phosphorous" value={this.props.phosphorous}
+              units="mg/dL"/>
+            <Variable used={true} name="Albumin" value={this.props.albumin} units="g/dL"/>
+            <Variable used={true} name="Bicarbonate" value={this.props.bicarbonate} 
+              units="mEq/L"/>
+          </div>
+        )
+      } else {
+        return (
+          <div className="top">
+            <h3 className="labData fancy-header">Relevant Laboratory Data</h3>
+            <Variable name="Sex" value={this.props.sex}/>
+            <Variable name="Age" value={this.props.age} units="years"/>
+            <Variable name="GFR" value={this.props.gfr} units="mL/min/1.73m²"/>
+            <Variable name="ACR" value={this.props.acr} units="mg/g"/>
+            <Variable name="Calcium" value={this.props.calcium} units="mg/dL"/>
+            <Variable name="Phosphorous" value={this.props.phosphorous}
+              units="mg/dL"/>
+            <Variable name="Albumin" value={this.props.albumin} units="g/dL"/>
+            <Variable name="Bicarbonate" value={this.props.bicarbonate} 
+              units="mEq/L"/>
+          </div>
+        )
+      }
     } else { return (<div></div>) }
   }
 }
@@ -153,7 +201,8 @@ class Results extends Component {
             phosphorous={this.props.phosphorous}
             albumin={this.props.albumin}
             bicarbonate={this.props.bicarbonate}
-            isCCD={this.props.isCCD}/>
+            isCCD={this.props.isCCD}
+            variablesUsed={this.props.variablesUsed}/>
           {riskResult}
         </div>
       )
@@ -184,7 +233,8 @@ class Foresight extends Component {
       albumin: '',
       bicarbonate: '',
       ckdRisk: null,
-      missingVars: []
+      missingVars: [],
+      variablesUsed: null
     }
   }
 
@@ -302,7 +352,13 @@ class Foresight extends Component {
         this.state.phosphorous !== '' &&
         this.state.albumin !== '' &&
         this.state.bicarbonate !== '') {
-      let calculatedRisk= this.calculateCKDRisk()
+      let calculatedRisk = this.calculateCKDRisk8Var()
+      this.setState({ckdRisk: calculatedRisk})
+    } else if (this.state.sex !== '' &&
+        this.state.age !== '' &&
+        this.state.gfr !== '' &&
+        this.state.acr !== '') {
+      let calculatedRisk = this.calculateCKDRisk4Var()
       this.setState({ckdRisk: calculatedRisk})
     } else {
       let missingVarsTemp = []
@@ -326,18 +382,31 @@ class Foresight extends Component {
     return value
   }
 
-  calculateCKDRisk() {
+  calculateCKDRisk8Var() {
+    this.setState({variablesUsed: 8})
     let sumbetaxbar = -7.3920
     let sex
     if (this.state.sex === "M") { sex = 1 }
     else { sex = 0 }
-    console.log('sex: ' + sex)
     let sumbetax = ((0.16117 * sex) + (-0.19883 * (this.state.age/10)) +
       (-0.49360 * (this.state.gfr/5)) + (0.35066 * Math.log(this.state.acr)) +
       (-0.22129 * this.state.calcium) + (0.24197 * this.state.phosphorous) +
       (-0.33867 * this.state.albumin) + (-0.07429 * this.state.bicarbonate))
-    console.log('sumbetax: ' + sumbetax)
     let probability = 1 - Math.pow(0.929, Math.exp(sumbetax - sumbetaxbar))
+    probability *= 100
+    probability = probability.toFixed(1)
+    return probability
+  }
+
+  calculateCKDRisk4Var() {
+    this.setState({variablesUsed: 4})
+    let sumbetaxbar = -2.967741678
+    let sex
+    if (this.state.sex === "M") { sex = 1 }
+    else { sex = 0 }
+    let sumbetax = ((0.26940 * sex) + (-0.21670 * (this.state.age/10)) +
+      (-0.55418 * (this.state.gfr/5)) + (0.45608 * Math.log(this.state.acr)))
+    let probability = 1 - Math.pow(0.924, Math.exp(sumbetax - sumbetaxbar))
     probability *= 100
     probability = probability.toFixed(1)
     return probability
@@ -447,7 +516,8 @@ class Foresight extends Component {
           phosphorous={this.state.phosphorous}
           albumin={this.state.albumin}
           bicarbonate={this.state.bicarbonate}
-          isCCD={this.state.isCCD}/>
+          isCCD={this.state.isCCD}
+          variablesUsed={this.state.variablesUsed}/>
         <Footer/>
       </div>
     )

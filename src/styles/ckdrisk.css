@@ -45,6 +45,9 @@ html, body, main {
   .section:after {
     clear: both; }
 
+.dimmed {
+  color: #777; }
+
 .col {
   display: block;
   float: left;
